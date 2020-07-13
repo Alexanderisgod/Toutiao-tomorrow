@@ -89,11 +89,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<Object> getUserMovie(User user){
+    public List<Object> getUserWantWatched(User user) {
         List<Object> res = new ArrayList<>();
         res.addAll(UserHasWatchedDao.getMovieByUserId(user.getuId()));
-
+        return  res;
     }
+
+    @Override
+    public List<Object> getUserWatchedMovie(User user){
+        List<Object> res = new ArrayList<>();
+        res.addAll(UserHasWatchedDao.getMovieByUserId(user.getuId()));
+        return  res;
+    }
+
+
 
 
     @Override
@@ -115,5 +124,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public Map<Object, Object> getUserTime(User user) {
         return userDao.getUserTime(user);
+    }
+
+    @Override
+    public User changeUserInfo(long userID) {
+
     }
 }

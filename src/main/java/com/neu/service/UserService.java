@@ -26,7 +26,11 @@ public interface UserService {
 
    List<Object> goHome(long id);
 
-   List<Object> getUserMovie(User user);
+   List<Object> getUserWatchedMovie(User user);
+
+   List<Object> getUserWantWatched(User user);
+
+
 
    Map<Object,Object> getUserMType(User user);
 
@@ -35,4 +39,5 @@ public interface UserService {
    Map<Object,Object> getUserMLocation(User user);
 
    Map<Object,Object> getUserTime(User user);
+
 }
