@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace绑定一个对应的DAO接口-->
+<mapper namespace="com.neu.dao.MovieDao">
+
+    <!--模糊查询-->
+    <select id="getMovieIF" parameterType="string" resultType="com.neu.model.Movie">
+        select * from movie
+        <where>
+            <if test="text!=null">
+                mName like "%"#{text}"%" or director like "%"#{text}"%" or actor like "%"#{text}"%" or screenwriter like "%"#{text}"%" or actor like "%"#{text}"%"
+                or language like "%"#{text}"%" or type like "%"#{text}"%" or introduction like "%"#{text}"%"
+            </if>
+        </where>
+    </select>
+    <update id="updateMovieIF" parameterType="map">
+        update movie set mName=#{mName},rate=#{rate},director=#{director},screenwriter=#{screenwriter},actor=#{actor},type=#{type},area=#{area},language=#{language},length=#{length},coverurl=#{coverurl},click=#{click},startTime=#{startTime},introduction=#{introduction} where mId=#{mId}
+    </update>
+</mapper>

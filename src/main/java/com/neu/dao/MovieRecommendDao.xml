@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace绑定一个对应的DAO接口-->
+<mapper namespace="com.neu.dao.MovieRecommendDao">
+
+    <delete id="deleteMovieRecommendIF" parameterType="map">
+        delete from movie_recommend
+        <where>
+            <if test="mId!=null">
+                mId=#{mId}
+            </if>
+            <if test="movieId!=null">
+                and movieId=#{movieId}
+            </if>
+        </where>
+    </delete>
+    <select id="getMovieByMovieId" parameterType="long" resultType="com.neu.model.Movie">
+        select m.mId mId,m.mName mName,ROUND(m.rate,1) rate,m.director director,m.screenwriter screenwriter,m.actor actor,m.type type,m.area area,m.language language,m.length length,m.coverurl coverurl,m.click click,m.startTime startTime,m.introduction introduction
+        from movie m,movie_recommend r
+        where r.movieId=m.mId and r.mId=#{mId}
+    </select>
+
+</mapper>

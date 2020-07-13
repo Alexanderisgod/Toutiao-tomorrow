@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace绑定一个对应的DAO接口-->
+<mapper namespace="com.neu.dao.UserDao">
+    <update id="updateUserById" parameterType="map">
+        update user
+        <set>
+            <if test="uName!=null">
+                uName=#{uName},
+            </if>
+            <if test="gender!=null">
+                gender=#{gender},
+            </if>
+            <if test="age!=null">
+                age=#{age},
+            </if>
+            <if test="introduction!=null">
+                introduction=#{introduction},
+            </if>
+            <if test="birth!=null">
+                birth=#{birth},
+            </if>
+            <if test="local!=null">
+                local=#{local},
+            </if>
+        </set>
+        where uId=#{uId}
+    </update>
+</mapper>

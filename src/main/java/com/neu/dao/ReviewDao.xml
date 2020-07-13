@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace绑定一个对应的DAO接口-->
+<mapper namespace="com.neu.dao.ReviewDao">
+    <select id="getReviewIF" parameterType="map" resultType="com.neu.model.Review">
+        select * from review
+        <where>
+            <if test="rId!=null">
+                rId=#{rId}
+            </if>
+            <if test="uId!=null">
+                and uId=#{uId}
+            </if>
+            <if test="mId!=null">
+                and mId=#{mId}
+            </if>
+        </where>
+    </select>
+    <select id="getReviewSort" parameterType="map" resultType="com.neu.model.Review">
+        select * from review
+        <if test="mId!=null">
+            where mId=#{mId}
+        </if>
+        <choose>
+            <when test="agreeNum!=null">
+                order by agreeNum desc,rId asc
+            </when>
+            <when test="rTime!=null">
+                order by rTime desc,rId asc
+            </when>
+            <when test="rStar!=null">
+                order by rStar desc,rId asc
+            </when>
+            <otherwise>
+                order by rId asc
+            </otherwise>
+        </choose>
+
+
+    </select>
+    <update id="updateReviewById" parameterType="map">
+        update review
+        <set>
+            <if test="rTime!=null">
+                rTime=#{rTime},
+            </if>
+            <if test="commend!=null">
+                commend=#{commend},
+            </if>
+            <if test="rStar!=null">
+                rStar=#{rStar},
+            </if>
+            <if test="agreeNum!=null">
+                agreeNum=#{agreeNum},
+            </if>
+        </set>
+        where rId=#{rId}
+    </update>
+</mapper>

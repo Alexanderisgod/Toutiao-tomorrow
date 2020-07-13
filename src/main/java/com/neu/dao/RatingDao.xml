@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace绑定一个对应的DAO接口-->
+<mapper namespace="com.neu.dao.RatingDao">
+    <select id="getRatingIF" parameterType="map" resultType="com.neu.model.Rating">
+        select * from rating
+        <where>
+            <if test="rId!=null">
+                rId=#{rId}
+            </if>
+            <if test="uId!=null">
+                and uId=#{uId}
+            </if>
+            <if test="mId!=null">
+                and mId=#{mId}
+            </if>
+        </where>
+    </select>
+
+</mapper>
