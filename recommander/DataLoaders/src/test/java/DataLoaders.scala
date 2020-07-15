@@ -1,5 +1,6 @@
 
 import java.sql.{Connection, DriverManager}
+import java.util.Properties
 
 import org.apache.spark.rdd.JdbcRDD
 import org.apache.spark.sql.{DataFrame, SQLContext, SparkSession}
@@ -37,6 +38,15 @@ object DataLoaders {
 
 
     val spark = SparkSession.builder().config(sparkConf).getOrCreate()
+
+    val properties = new Properties()
+
+    properties.setProperty("user","root")
+    properties.setProperty("password","lx199909077997")
+    val person:DataFrame = spark.read.jdbc("jdbc:mysql://localhost:3306/mrs?serverTimezone=GMT","movie",properties)
+    val view = person.createOrReplaceTempView("T1")
+
+    print("select * from T1")
 //    val movieDF = spark.read.format("jdbc").options(mySQLConfig).load()
 //    movieDF.show()
 
@@ -47,35 +57,33 @@ object DataLoaders {
 //        rdd.foreach(print)
 //        val sql = rdd.toDF()
 //        sql.show()
-        val movieRDD = new JdbcRDD(
-          spark.sparkContext ,         //SparkContext
-          getConn,        //返回一个jdbc连接的函数
-          "SELECT * FROM movie WHERE m_id >= ? AND m_id <= ?",  //sql语句（要包含两个占位符）
-          4,      //第一个占位符的最小值
-          10,    //第二个占位符的最大值
-          2, //分区数量
-          rs => {
-            val id = rs.getLong(1)
-            val name = rs.getString(2)
-            val rate = rs.getFloat(3)
-            val director = rs.getString(4)
-            val screenwriter= rs.getString(5)
-            val actor = rs.getString(6)
-            val types = rs.getString(7)
-            val area = rs.getString(8)
-            val language =rs.getString(9)
-            val length = rs.getInt(10)
-            val coverurl = rs.getString(11)
-            val click = rs.getString(12)
-            val start_time=rs.getString(13)
-            val introduction = rs.getString(14)
-
-            (id, name,rate,director,screenwriter,actor,types,area,language,length,coverurl,click,start_time,introduction)
-          }
-        ).toDF()
-
-        val result  = movieRDD.collect()
-        println(result.toBuffer)
+//        val movieRDD = new JdbcRDD(
+//          spark.sparkContext ,         //SparkContext
+//          getConn,        //返回一个jdbc连接的函数
+//          "SELECT * FROM movie WHERE m_id >= ? AND m_id <= ?",  //sql语句（要包含两个占位符）
+//          4,      //第一个占位符的最小值
+//          10,    //第二个占位符的最大值
+//          2, //分区数量
+//          rs => {
+//            val id = rs.getLong(1)
+//            val name = rs.getString(2)
+//            val rate = rs.getFloat(3)
+//            val director = rs.getString(4)
+//            val screenwriter= rs.getString(5)
+//            val actor = rs.getString(6)
+//            val types = rs.getString(7)
+//            val area = rs.getString(8)
+//            val language =rs.getString(9)
+//            val length = rs.getInt(10)
+//            val coverurl = rs.getString(11)
+//            val click = rs.getString(12)
+//            val start_time=rs.getString(13)
+//            val introduction = rs.getString(14)
+//
+//            (id, name,rate,director,screenwriter,actor,types,area,language,length,coverurl,click,start_time,introduction)
+//          }
+//        ).toDF()
+//
 
     spark.stop()
 //    val ratingRDD = null

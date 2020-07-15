@@ -13,6 +13,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>DataLoaders</module>
+        <module>StaticRecommender</module>
     </modules>
 
 
@@ -44,7 +45,7 @@
         <dependency>
             <groupId>org.scala-lang</groupId>
             <artifactId>scala-library</artifactId>
-            <version>${spark.version}</version>
+            <version>${scala.version}</version>
         </dependency>
     </dependencies>
 

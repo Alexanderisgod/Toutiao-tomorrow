@@ -112,10 +112,10 @@ public class UserController {
         user.setAge(age);
         user.setIntroduction(introduction);
         user.setLocal(local);
-        if(){
-
-            return userServiceImpl.changeUserInfo(user);
-        }
+//        if(){
+//
+//            return userServiceImpl.changeUserInfo(user);
+//        }
     }
 
 
