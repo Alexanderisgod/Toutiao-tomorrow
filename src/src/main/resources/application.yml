@@ -1,0 +1,32 @@
+name: Alex-肖华辉
+csdnUrl: https://test.com
+
+#封装配置信息
+author:
+  name: 肖华辉
+  csdnUrl: https://test1.com
+
+spring:
+  #mysql
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/MRS?serverTimezone=GMT%2B8&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: /src/main/java
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+
+server:
+  port: 8888
+
+movies_per_page: 10
